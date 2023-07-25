@@ -5,9 +5,8 @@
 }
 
 #game-over {
-  width: 90%;
-  max-width: 40rem;
-  margin: auto;
+  width: 40rem;
+  margin: 0 auto;
   padding: 1rem 2rem;
   background-color: rgb(50, 5, 87);
   color:white;
@@ -57,3 +56,10 @@
   color: white;
   cursor: default;
 }
+
+@media (max-width: 768px) {
+  #game-over {
+    width: 80%;
+  }
+}
+
