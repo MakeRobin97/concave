@@ -230,7 +230,7 @@ function victoryLogic(event){
       }
 
     if(blackCross11Index!==-1){
-      if(cross1Box[blackCross11Index] ==1 &&cross1Box[blackCross11Index+1] ==1 && cross1Box[blackCross11Index+2] ==1){
+      if(cross11Box[blackCross11Index] ==1 &&cross11Box[blackCross11Index+1] ==1 && cross11Box[blackCross11Index+2] ==1){
         resultBoard.style.display='block';
         winnerResult.textContent= players[activePlayer].name
         endGame()
