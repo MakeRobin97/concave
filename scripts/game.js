@@ -84,42 +84,26 @@ function victoryLogic(event){
   const clickSection = gameData[selectedRow][selectedColumn];
   let count = 0;
 
-  if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn+1]){
-    count=count+1
-    for(let i=1; i<gameRule-1; i++){
-      if(gameData[selectedRow][selectedColumn+i]==gameData[selectedRow][selectedColumn+i+1]){
+
+
+    for(let i=0; i<gameRule-1; i++){
+        // 우측
+      if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn+i]
+        &&gameData[selectedRow][selectedColumn+i]==gameData[selectedRow][selectedColumn+i+1]){
         count=count+1
       }
-  }
-    }
-    console.log(count);
-    if(count==gameRule-1){
-      endGame();
-    }
-
-
-
-  if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn-1]){
-    count=count+1
-    for(let i=1; i<gameRule-1; i++){
-      if(gameData[selectedRow][selectedColumn-i]==gameData[selectedRow][selectedColumn-i-1]){
-          count=count+1
+        // 좌측
+      if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn-i]
+        &&gameData[selectedRow][selectedColumn-i]==gameData[selectedRow][selectedColumn-i-1]){
+        count=count+1
       }
-  }
+      
+      if(count>=gameRule-1){
+        endGame();
+      }
+    
     }
-    console.log(count);
-    if(count==gameRule-1){
-      endGame();
-    }
-
   }
-
-
-
-
-
-
-
 
 // function victoryLogic(event){
 //   // 흑돌 가로로직
