@@ -82,24 +82,42 @@ function victoryLogic(event){
   const selectedColumn = +selectedField.dataset.col-1;
   const selectedRow = +selectedField.dataset.row-1;
   const clickSection = gameData[selectedRow][selectedColumn];
+  let count = 0;
 
-  let count= 0;
-  
-  for (let i=1; i<gameRule; i++){
-  if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn+i]){
+  if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn+1]){
     count=count+1
+    for(let i=1; i<gameRule-1; i++){
+      if(gameData[selectedRow][selectedColumn+i]==gameData[selectedRow][selectedColumn+i+1]){
+        count=count+1
+      }
   }
+    }
+    console.log(count);
+    if(count==gameRule-1){
+      endGame();
+    }
 
-  if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn-i]){
+
+
+  if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn-1]){
     count=count+1
+    for(let i=1; i<gameRule-1; i++){
+      if(gameData[selectedRow][selectedColumn-i]==gameData[selectedRow][selectedColumn-i-1]){
+          count=count+1
+      }
   }
+    }
+    console.log(count);
+    if(count==gameRule-1){
+      endGame();
+    }
+
   }
 
-  if(count==2){
-    endGame()
-  }
 
-}
+
+
+
 
 
 
