@@ -5,8 +5,8 @@ function resetGameStatus(){
   resultBoard.style.display='none';
 
   let gameBoardIndex = 0;
-  for (let i=0; i< 5; i++){
-    for (let j=0; j<5; j++){
+  for (let i=0; i< gameBoard; i++){
+    for (let j=0; j< gameBoard; j++){
       gameData[i][j] = 0;
       const gameBoardItemElement = gameBoardElement.children[gameBoardIndex];
       gameBoardElement.children[gameBoardIndex].innerHTML='';
@@ -41,6 +41,7 @@ function switchPlayer(){
 
 
 function selectGameField(event){
+  console.log(event.target);
   if (event.target.tagName != 'LI' || gameIsOver){
     return;
   }
@@ -81,207 +82,125 @@ function victoryLogic(event){
   const selectedField = event.target;
   const selectedColumn = +selectedField.dataset.col-1;
   const selectedRow = +selectedField.dataset.row-1;
-  const clickSection = gameData[selectedRow][selectedColumn];
-  let count = 0;
+  let leftRightCount = 0;
+  let upDownCount = 0;
+  let oneSevenCount = 0;
+  let elevenFiveCount = 0;
 
-
-
-    for(let i=0; i<gameRule-1; i++){
-        // 우측
-      if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn+i]
-        &&gameData[selectedRow][selectedColumn+i]==gameData[selectedRow][selectedColumn+i+1]){
-        count=count+1
-      }
-        // 좌측
-      if(gameData[selectedRow][selectedColumn]==gameData[selectedRow][selectedColumn-i]
-        &&gameData[selectedRow][selectedColumn-i]==gameData[selectedRow][selectedColumn-i-1]){
-        count=count+1
-      }
-      
-      if(count>=gameRule-1){
-        endGame();
+  // 오른쪽 가로
+    for(let i=1; i<gameRule; i++){
+      if(gameData[selectedRow][selectedColumn]!=gameData[selectedRow][selectedColumn+i]){
+          break;       
+      } else {
+        leftRightCount=leftRightCount+1
       }
     }
-  }
+
+  // 왼쪽 가로
+    for(let i=1; i<gameRule; i++){
+      if(gameData[selectedRow][selectedColumn]!=gameData[selectedRow][selectedColumn-i]){
+          break;       
+      } else {
+        leftRightCount=leftRightCount+1
+      }
+    }
     
 
+    // 위쪽
+    for(let i=0; i<selectedRow; i++){
+      if(gameData[selectedRow-i][selectedColumn]!=gameData[selectedRow-i-1][selectedColumn]){
+          break;       
+      } else {
+        upDownCount=upDownCount+1
+        if(upDownCount>=gameRule-1){
+          console.log('upwin');
+          endGame();
+        }
+      }
+    }
 
-// function victoryLogic(event){
-//   // 흑돌 가로로직
-//   for (const oneRow of gameData) {
-//     const blackIndex = oneRow.indexOf(1);
-//     if(blackIndex!==-1){
-//    if(oneRow[blackIndex] ==1 &&oneRow[blackIndex+1] ==1 && oneRow[blackIndex+2] ==1){
-//     resultBoard.style.display='block';
-//     winnerResult.textContent= players[activePlayer].name
-//     endGame()
-//      }
-//    }
-//   }
-
-//   // 백돌 가로로직
-//   for (const oneRow of gameData) {
-//     const blackIndex = oneRow.indexOf(2);
-//     if(blackIndex!==-1){
-//    if(oneRow[blackIndex] ==2 &&oneRow[blackIndex+1] ==2 && oneRow[blackIndex+2] ==2){
-//     resultBoard.style.display='block';
-//     winnerResult.textContent= players[activePlayer].name
-//     endGame()   
-//   }
-//    }
-//   }
-
-//   let columnBox =[];
-//   //  흑돌 , 백돌 세로로직
-//    for (i=0; i<gameData.length; i++){
-
-//     const selectedField = event.target;
-//     const selectedColumn = +selectedField.dataset.col-1;
-//     columnBox.push(gameData[i][selectedColumn]);
-
-//     const blackIndex = columnBox.indexOf(1);
-//     if(blackIndex!==-1){
-//       if(columnBox[blackIndex] ==1 &&columnBox[blackIndex+1] ==1 && columnBox[blackIndex+2] ==1){
-//        resultBoard.style.display='block';
-//        winnerResult.textContent= players[activePlayer].name
-//        endGame()
-//         }
-//       }
-
-//     const whiteIndex = columnBox.indexOf(2);
-//     if(whiteIndex!==-1){
-//       if(columnBox[whiteIndex] ==2 &&columnBox[whiteIndex+1] ==2 && columnBox[whiteIndex+2] ==2){
-//         resultBoard.style.display='block';
-//         winnerResult.textContent= players[activePlayer].name
-//         endGame()
-//           }
-//     }
-
-//     }
-
-
-
-
-//   let cross1Box =[];
-//   let cross11Box =[];
-//       //  흑돌 , 백돌 대각선 로직
-//   const crossField = event.target;
-//   const crossColumn = +crossField.dataset.col-1;
-//   const crossRow = +crossField.dataset.row-1;
-
-//   // 대각선 1시
-
-//   try{
-//     cross1Box.push(gameData[crossRow-2][crossColumn+2])
-//   }
-//   catch {
-//     cross1Box.push(-1)
-//   }
-
-//   try{
-//     cross1Box.push(gameData[crossRow-1][crossColumn+1])
-//   }
-//   catch {
-//     cross1Box.push(-1)
-//   }
-
-//   try{
-//     cross1Box.push(gameData[crossRow][crossColumn])
-//   }
-//   catch {
-//     cross1Box.push(-1)
-//   }
-
-//   try{
-//     cross1Box.push(gameData[crossRow+1][crossColumn-1])
-//   }
-//   catch {
-//     cross1Box.push(-1)
-//   }
-
-//   try{
-//     cross1Box.push(gameData[crossRow+2][crossColumn-2])
-//   }
-//   catch {
-//     cross1Box.push(-1)
-//   }
-
-//   //대각선 11시
-
-//   try{
-//     cross11Box.push(gameData[crossRow-2][crossColumn-2])
-//   }
-//   catch {
-//     cross11Box.push(-1)
-//   }
-
-//   try{
-//     cross11Box.push(gameData[crossRow-1][crossColumn-1])
-//   }
-//   catch {
-//     cross11Box.push(-1)
-//   }
-
-//   try{
-//     cross11Box.push(gameData[crossRow][crossColumn])
-//   }
-//   catch {
-//     cross11Box.push(-1)
-//   }
-
-//   try{
-//     cross11Box.push(gameData[crossRow+1][crossColumn+1])
-//   }
-//   catch {
-//     cross11Box.push(-1)
-//   }
-
-//   try{
-//     cross11Box.push(gameData[crossRow+2][crossColumn+2])
-//   }
-//   catch {
-//     cross11Box.push(-1)
-//   }
-
-//   const blackCross1Index = cross1Box.indexOf(1);
-//   const blackCross11Index = cross11Box.indexOf(1);
-//   const whiteCross1Index = cross1Box.indexOf(2);
-//   const whiteCross11Index = cross11Box.indexOf(2);
-
-//     if(blackCross1Index!==-1){
-//       if(cross1Box[blackCross1Index] ==1 &&cross1Box[blackCross1Index+1] ==1 && cross1Box[blackCross1Index+2] ==1){
-//        resultBoard.style.display='block';
-//        winnerResult.textContent= players[activePlayer].name
-//        endGame()
-//         }
-//       }
-
-//     if(blackCross11Index!==-1){
-//       if(cross11Box[blackCross11Index] ==1 &&cross11Box[blackCross11Index+1] ==1 && cross11Box[blackCross11Index+2] ==1){
-//         resultBoard.style.display='block';
-//         winnerResult.textContent= players[activePlayer].name
-//         endGame()
-//           }
-//         }
-//     if(whiteCross1Index!==-1){
-//       if(cross1Box[whiteCross1Index] ==2 &&cross1Box[whiteCross1Index+1] ==2 && cross1Box[whiteCross1Index+2] ==2){
-//         resultBoard.style.display='block';
-//         winnerResult.textContent= players[activePlayer].name
-//         endGame()
-//             }
-//           }
+    // // 아래쪽
+    for(let i=0; i<gameBoard-selectedRow-1; i++){
+      if(gameData[selectedRow+i][selectedColumn]!=gameData[selectedRow+i+1][selectedColumn]){
+          break;       
+      } else {
+        upDownCount=upDownCount+1
+        if(upDownCount>=gameRule-1){
+          console.log('downwin');
+          endGame();
+        }
+      }
+    }
     
-//     if(whiteCross11Index!==-1){
-//       if(cross11Box[whiteCross11Index] ==2 &&cross11Box[whiteCross11Index+1] ==2 && cross11Box[whiteCross11Index+2] ==2){
-//         resultBoard.style.display='block';
-//         winnerResult.textContent= players[activePlayer].name
-//         endGame()
-//               }
-//             }
+    // 대각선 1시
+    for(let i=0; i<selectedRow; i++){
+      if(gameData[selectedRow-i][selectedColumn+i]!=gameData[selectedRow-i-1][selectedColumn+i+1]){
+          break;       
+      } else {
+        oneSevenCount=oneSevenCount+1
+        if(oneSevenCount>=gameRule-1){
+          console.log('1clockWin');
+          endGame();
+        }
+      }
+    }
 
-//     if(currentRound===25){
-//       resultBoard.style.display='block';
-//       winnerResult.textContent='없습니다';
-//       }
+    // 대각선7시
+    for(let i=0; i<gameBoard-selectedRow-1; i++){
+      if(gameData[selectedRow+i][selectedColumn-i]!=gameData[selectedRow+i+1][selectedColumn-i-1]){
+          break;       
+      } else {
+        oneSevenCount=oneSevenCount+1
+        if(oneSevenCount>=gameRule-1){
+          console.log('7clockWin');
+          endGame();
+        }
+      }
+    }
 
-// }
+    // 대각선 11시
+    for(let i=0; i<selectedRow; i++){
+      if(gameData[selectedRow-i][selectedColumn-i]!=gameData[selectedRow-i-1][selectedColumn-i-1]){
+          break;       
+      } else {
+        elevenFiveCount=elevenFiveCount+1
+        if(elevenFiveCount>=gameRule-1){
+          console.log('11clockWin');
+          endGame();
+        }
+      }
+    }
+
+    // 대각선 5시
+    for(let i=0; i<gameBoard-selectedRow-1; i++){
+      if(gameData[selectedRow+i][selectedColumn+i]!=gameData[selectedRow+i+1][selectedColumn+i+1]){
+          break;       
+      } else {
+        elevenFiveCount=elevenFiveCount+1
+        if(elevenFiveCount>=gameRule-1){
+          console.log('5clockWin');
+          endGame();
+        }
+      }
+    }
+
+
+    if(leftRightCount>=gameRule-1){
+        endGame();
+      }
+
+    if(upDownCount>=gameRule-1){
+        endGame();
+      }
+
+    if(oneSevenCount>=gameRule-1){
+        endGame();
+      }
+
+    if(elevenFiveCount>=gameRule-1){
+        endGame();
+      }
+
+
+
+    }
