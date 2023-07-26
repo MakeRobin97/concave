@@ -22,7 +22,7 @@ const players = [
   },
   {
     name: '주호민',
-    symbol: `white`
+    symbol: 'white'
   },
 ];
 
@@ -38,13 +38,15 @@ const resultBoard = document.querySelector('#game-over');
 const winnerResult = document.querySelector('#winner-name');
 const gameBoardTotal = document.querySelector('#game-board-total');
 
-
+// Button
 const editPlayer1BtnElement = document.getElementById('edit-player-1-btn');
 const editPlayer2BtnElement = document.getElementById('edit-player-2-btn');
 const cancleConfigBtnElement = document.getElementById('cancle-config-btn');
 const startNewGameBtnElement = document.getElementById('start-game-btn');
 
 
+
+// Event
 editPlayer1BtnElement.addEventListener('click', openPlayerConfig);
 editPlayer2BtnElement.addEventListener('click', openPlayerConfig);
 
