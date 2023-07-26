@@ -30,8 +30,8 @@
   margin: 1rem 0;
   padding: 0;
   display:grid;
-  grid-template-columns: repeat(5, 4rem);
-  grid-template-rows: repeat(5, 4rem);
+  grid-template-columns: repeat(7, 4rem);
+  grid-template-rows: repeat(7, 4rem);
   justify-content: center;
   gap: 0.5rem;
 }

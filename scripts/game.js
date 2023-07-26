@@ -101,9 +101,10 @@ function victoryLogic(event){
       if(count>=gameRule-1){
         endGame();
       }
-    
     }
   }
+    
+
 
 // function victoryLogic(event){
 //   // 흑돌 가로로직
@@ -284,4 +285,3 @@ function victoryLogic(event){
 //       }
 
 // }
-
