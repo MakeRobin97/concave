@@ -20,11 +20,11 @@ let gameIsOver = false;
 
 const players = [
   {
-    name: '이병건',
+    name: '박인국',
     symbol: 'black'
   },
   {
-    name: '주호민',
+    name: '신동훈',
     symbol: 'white'
   },
 ];
